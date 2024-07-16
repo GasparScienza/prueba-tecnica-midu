@@ -3,7 +3,8 @@ import { URL1, URL2 } from './const';
 
 function App() {
     const [fact, setFact] = useState('');
-    const [imagen, setImagen] = useState();
+    const [palabra, setPalabra] = useState('');
+    const [url, setUrl] = useState('');
 
     useEffect(() => {
         fetch(`${URL1}`)
@@ -15,14 +16,26 @@ function App() {
               //el slice me devuelve las 3 primeras palabras
               //El join convierte a string mi array
               //const primerPalabra = fact.split(' ').slice(0,3).join(' ')
-              const primerPalabra = fact.split(' ', 3).join(' ')
-              console.log(primerPalabra)
+              //Aca hace lo mismo pero en menos pasos
+              //const primerPalabra = fact.split(' ', 3).join(' ')
+              const primerPalabra = fact.split(' ').slice(0,1).join(' ')
+              setPalabra(primerPalabra)
             })
     }, [])
+    useEffect(() => {
+      if(palabra){
+        fetch(`${URL2}/${palabra}`)
+              .then(data =>{
+                const {url} = data;
+                setUrl(url)
+              })
+      }
+    }, [palabra])
 
   return (
     <>
         {fact && <p>{fact}</p>}
+        <img src={url} alt="" />
     </>
   )
 }
