@@ -18,7 +18,7 @@ function App() {
     <>
       <button onClick={handleClick}>Cambiar Fact</button>
       {fact && <p>{fact}</p>}
-      <img src={urlCat} alt="Cats Photo" />
+      {urlCat && <img style={{width:400}} src={urlCat} alt={`Cats Photo for ${fact}`} />}
     </>
   )
 }
